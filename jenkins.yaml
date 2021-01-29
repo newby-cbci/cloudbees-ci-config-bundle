@@ -1,0 +1,41 @@
+jenkins:
+  systemMessage: 'Jenkins configured using CloudBees CI CasC - v1'
+unclassified:
+  hibernationConfiguration:
+    activities:
+    - "build"
+    - "web"
+    enabled: true
+    gracePeriod: 1500
+  gitHubConfiguration:
+    apiRateLimitChecker: ThrottleForNormalize
+  gitHubPluginConfig:
+    hookSecretConfigs:
+    - credentialsId: "cloudbees-ci-workshop-github-webhook-secret"
+  globallibraries:
+    libraries:
+    - defaultVersion: "master"
+      name: "pipeline-library"
+      retriever:
+        modernSCM:
+          scm:
+            github:
+              credentialsId: "cloudbees-ci-workshop-github-app"
+              repoOwner: "REPLACE_GITHUB_ORG"
+              repository: "pipeline-library"
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - string:
+          description: "Webhook secret for CloudBees CI Workshop GitHub App"
+          id: "cloudbees-ci-workshop-github-webhook-secret"
+          scope: SYSTEM
+          secret: "${gitHubWebhookSecret}"
+      - gitHubApp:
+          apiUri: "https://api.github.com"
+          appID: "77562"
+          description: "CloudBees CI Workshop GitHub App credential"
+          id: "cloudbees-ci-workshop-github-app"
+          owner: "REPLACE_GITHUB_ORG"
+          privateKey: "${gitHubAppPrivateKey}"
