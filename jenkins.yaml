@@ -21,7 +21,7 @@ unclassified:
           scm:
             github:
               credentialsId: "cloudbees-ci-workshop-github-app"
-              repoOwner: "REPLACE_GITHUB_ORG"
+              repoOwner: "newby-cbci"
               repository: "pipeline-library"
 credentials:
   system:
@@ -37,5 +37,5 @@ credentials:
           appID: "77562"
           description: "CloudBees CI Workshop GitHub App credential"
           id: "cloudbees-ci-workshop-github-app"
-          owner: "REPLACE_GITHUB_ORG"
+          owner: "newby-cbci"
           privateKey: "${gitHubAppPrivateKey}"
