@@ -7,7 +7,8 @@ cloudbees-pipeline-policies:
       - entirePipelineTimeoutRule:
           maxTime: 60
 jenkins:
-  systemMessage: 'Jenkins configured using CloudBees CI CasC - v4'
+  authorizationStrategy: "cloudBeesRoleBasedAccessControl"
+  systemMessage: 'Jenkins configured using CloudBees CI CasC - v2'
 unclassified:
   hibernationConfiguration:
     activities:
@@ -31,6 +32,39 @@ unclassified:
               credentialsId: "cloudbees-ci-workshop-github-app"
               repoOwner: "newby-cbci"
               repository: "pipeline-library"
+kube:
+  podTemplatesConfiguration:
+    templates:
+    - containers:
+      - args: "cat"
+        command: "/bin/sh -c"
+        image: "maven:3-openjdk-8"
+        livenessProbe:
+          failureThreshold: 0
+          initialDelaySeconds: 0
+          periodSeconds: 0
+          successThreshold: 0
+          timeoutSeconds: 0
+        name: "maven"
+        ttyEnabled: true
+        workingDir: "/home/jenkins/agent"
+      envVars:
+      - envVar:
+          key: "MAVEN_CONFIG"
+          value: "/var/maven/.m2"
+      hostNetwork: false
+      idleMinutes: 30
+      idleMinutesStr: "30"
+      label: "maven"
+      name: "maven"
+      podRetention: "always"
+      volumes:
+      - emptyDirVolume:
+          memory: false
+          mountPath: "/var/maven/"
+      yamlMergeStrategy: "override"
+groovy:
+  - url: https://raw.githubusercontent.com/newby-cbci/cloudbees-ci-config-bundle/master/groovy/create-pipeline-template-job.groovy
 credentials:
   system:
     domainCredentials:
